@@ -22,7 +22,7 @@ const Navbar = () => {
         <div className="lg:max-w-2xl w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="hidden lg:grid grid-cols-3 gap-2 items-center h-16">
             <div className="flex items-center justify-end animate-on-load animate-slide-left delay-100">
-              <a
+              <Link
                 href="#"
                 onClick={() => setActiveNavItem('HOME')}
                 className={`nav-item-hover text-secondary-heading text-center uppercase transition-colors duration-200 py-5 px-7 text-xs font-medium ${
@@ -31,8 +31,8 @@ const Navbar = () => {
                 style={{ letterSpacing: "2px", lineHeight: "140%" }}
               >
                 HOME
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 onClick={() => setActiveNavItem('ABOUT US')}
                 className={`nav-item-hover text-secondary-heading text-center text-nowrap uppercase transition-colors duration-200 py-5 px-7 text-xs font-medium ${
@@ -41,7 +41,7 @@ const Navbar = () => {
                 style={{ letterSpacing: "2px", lineHeight: "140%" }}
               >
                 ABOUT US
-              </a>
+              </Link>
               <Dropdown
                 title="EVENTS"
                 isActive={activeNavItem === 'EVENTS'}
@@ -74,7 +74,7 @@ const Navbar = () => {
                   }}
                 >
                   <Image
-                    src={"/logo.svg"}
+                    src={"/Logo.svg"}
                     alt="Logo"
                     width={100}
                     height={100}
