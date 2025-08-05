@@ -1,3 +1,5 @@
+import Contact from "./(landing)/_components/Contact/Contact";
+import Footer from "./(landing)/_components/Footer/Footer";
 import Gallery from "./(landing)/_components/Gallery/Gallery";
 import Hero from "./(landing)/_components/Hero/Hero";
 import Intro from "./(landing)/_components/IntroSection/Intro";
@@ -28,8 +30,12 @@ export default function Home() {
 
         <Gallery />
 
+        <Contact />
+
         <TestimonialSection />
-        
+
+        <Footer />
+
       </main>
     </div>
   );
