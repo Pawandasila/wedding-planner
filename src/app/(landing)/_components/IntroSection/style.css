@@ -1,0 +1,160 @@
+/* Intro Section Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes expandWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: 7rem;
+  }
+}
+
+@keyframes expandFromCenter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 3rem;
+  }
+}
+
+/* Animation Classes */
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-slideInUp {
+  animation: slideInUp 0.8s ease-out forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+.animate-expandWidth {
+  animation: expandWidth 1.2s ease-out forwards;
+}
+
+.intro-animate-expandFromCenter {
+  width: 0;
+}
+
+.intro-animate-expandFromCenter.animate {
+  animation: expandFromCenter 0.8s ease-out forwards;
+}
+
+/* Animation Delays */
+.animation-delay-200 {
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+}
+
+.animation-delay-600 {
+  animation-delay: 0.6s;
+  animation-fill-mode: both;
+}
+
+.animation-delay-800 {
+  animation-delay: 0.8s;
+  animation-fill-mode: both;
+}
+
+/* Initial states for viewport animations */
+.intro-animate-fadeInUp {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.intro-animate-slideInUp {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.intro-animate-slideInLeft {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.intro-animate-expandWidth {
+  width: 0;
+}
+
+/* Active animation states */
+.intro-animate-fadeInUp.animate {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.intro-animate-slideInUp.animate {
+  animation: slideInUp 0.8s ease-out forwards;
+}
+
+.intro-animate-slideInLeft.animate {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.intro-animate-expandWidth.animate {
+  animation: expandWidth 1.2s ease-out forwards;
+}
