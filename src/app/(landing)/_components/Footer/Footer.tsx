@@ -35,7 +35,7 @@ const Footer = () => {
               <Link href="/" className="inline-block">
                 <div className="flex items-center space-x-3">
                   <Image
-                    src="/logo.svg"
+                    src="/Logo.svg"
                     alt="LŌŌVIO Logo"
                     width={60}
                     height={60}
