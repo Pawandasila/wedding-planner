@@ -2,9 +2,7 @@
 import React, { useRef } from 'react';
 import { useInView } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
 import DecorativeLine from '../../../../components/DecorativeLine';
-import WeddingButton from '../../../../components/WeddingButton';
 import '../IntroSection/style.css';
 
 const Offerings = () => {
@@ -123,13 +121,13 @@ const Offerings = () => {
         </div>
 
         {/* View All Offerings Button */}
-        <div className={`mt-12 md:mt-16 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-1200' : ''}`}>
+        {/* <div className={`mt-12 md:mt-16 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-1200' : ''}`}>
           <WeddingButton asChild>
             <Link href="/offerings">
               View All Offerings
             </Link>
           </WeddingButton>
-        </div>
+        </div> */}
       </div>
     </section>
   );

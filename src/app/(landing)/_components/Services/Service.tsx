@@ -94,7 +94,7 @@ const Services = () => {
 
                 {/* Learn More Link */}
                 <Link 
-                  href={service.link}
+                  href={'/services'}
                   className="text-secondary-accent hover:text-secondary-heading transition-colors duration-300 uppercase tracking-wider text-sm font-medium underline hover:no-underline"
                 >
                   Learn More
