@@ -1,6 +1,6 @@
 # 💐 Wedding Planner - LŌŌVIO
 
-A modern, responsive Indian wedding planning website built with Next.js 15, featuring elegant animations, smooth scrolling, and comprehensive wedding services showcase.
+A comprehensive Indian wedding planning website built with Next.js 15, featuring elegant animations, cultural authenticity, and complete wedding services. From traditional ceremonies to destination weddings, we create magical celebrations that honor heritage and exceed expectations.
 
 ## 🚀 Live Demo
 
@@ -9,27 +9,31 @@ A modern, responsive Indian wedding planning website built with Next.js 15, feat
 ## ✨ Features
 
 ### 🎨 Design & User Experience
-- **Responsive Design**: Mobile-first approach with optimized layouts for all devices
-- **Smooth Scrolling**: Implemented with Lenis for buttery-smooth page navigation
+- **Responsive Design**: Mobile-first approach optimized for all devices
+- **Smooth Scrolling**: Lenis integration for buttery-smooth navigation
 - **Animated Interactions**: Framer Motion viewport animations with staggered entrances
-- **Professional Carousel**: Swiper.js integration for testimonials with fade effects
+- **Indian Wedding Theme**: Authentic cultural design elements and colors
 - **Interactive Elements**: Hover effects, floating animations, and micro-interactions
 
-### 📱 Sections & Components
-- **Hero Section**: Full-screen landing with call-to-action
-- **Intro Section**: Animated introduction with decorative elements
-- **Services Section**: Wedding services with image hover effects
-- **Gallery Section**: Pinterest-style masonry layout (desktop) / Clean grid (mobile)
-- **Offerings Section**: Comprehensive service packages with modern card design
-- **Stats Section**: Animated counters with viewport triggers
-- **Testimonials**: Professional carousel with client reviews and ratings
-- **Navigation**: Responsive navbar with dropdown menus and mobile overlay
+### 📱 Complete Website Pages
+- **Landing Page**: Hero section with comprehensive service introduction
+- **About Page**: Detailed company story and expertise showcase
+- **Gallery Page**: Curated wedding photography in organized categories
+- **Contact Page**: Professional contact form with business information
+- **Wedding Venues**: Interactive venue browsing with detailed information
+- **Service Pages**: Six comprehensive service offerings:
+  - 💒 **Wedding Planning**: Full-service traditional Indian wedding coordination
+  - 🎯 **Event Coordination**: Day-of coordination and event management
+  - 🏝️ **Destination Weddings**: Location-based celebrations across India and beyond
+  - 🕉️ **Cultural Ceremonies**: Regional traditions and authentic ritual coordination
+  - 🏢 **Corporate Events**: Business celebrations with Indian hospitality
+  - 💬 **Consultation Services**: Expert guidance and planning advice
 
 ### 🛠 Technical Features
 - **Next.js 15**: Latest React framework with App Router
-- **TypeScript**: Full type safety and better development experience
-- **Tailwind CSS**: Utility-first styling with custom design system
-- **Image Optimization**: Next.js Image component with lazy loading and blur placeholders
+- **TypeScript**: Full type safety and development experience
+- **Tailwind CSS**: Custom Indian wedding design system
+- **Image Optimization**: Next.js Image with lazy loading and blur placeholders
 - **SEO Optimized**: Meta tags, semantic HTML, and performance optimizations
 - **Production Ready**: ESLint compliance, build optimization, and static generation
 
@@ -50,11 +54,11 @@ A modern, responsive Indian wedding planning website built with Next.js 15, feat
 
 ### 🎨 Color Palette
 ```css
-/* CSS Custom Properties */
+/* Indian Wedding Theme Colors */
 :root {
   /* Primary Colors */
-  --primary-background: #fefefe;           /* Main background */
-  --secondary-background: #f8f9fa;         /* Section backgrounds */
+  --primary-background: #ffffff;           /* Pure white background */
+  --secondary-background: #f6f4ec;         /* Warm cream (#f6f4ec) */
   
   /* Text Colors */
   --primary-heading: #2d3748;             /* Main headings */
@@ -64,36 +68,30 @@ A modern, responsive Indian wedding planning website built with Next.js 15, feat
   
   /* Accent Colors */
   --primary-accent: #e53e3e;              /* Primary buttons, highlights */
-  --secondary-accent: #d69e2e;            /* Secondary accents, decorative */
-  --secondary-accent-rgb: 214, 158, 46;   /* RGB for opacity variants */
+  --secondary-accent: #de967d;            /* Indian wedding gold (#de967d) */
+  --secondary-accent-rgb: 222, 150, 125;  /* RGB for opacity variants */
   
   /* UI Elements */
   --primary-border: #e2e8f0;              /* Borders, dividers */
   --secondary-border: #edf2f7;            /* Subtle borders */
-  --secondary-accent-opacity-10: rgba(214, 158, 46, 0.1);
-  --secondary-accent-opacity-20: rgba(214, 158, 46, 0.2);
-  --secondary-accent-opacity-30: rgba(214, 158, 46, 0.3);
-  --secondary-accent-opacity-50: rgba(214, 158, 46, 0.5);
 }
+
+/* Indian Wedding Specific Classes */
+.secondary-accent { color: #de967d; }
+.secondary-background { background-color: #f6f4ec; }
 ```
 
 ### 🎭 Component Styling
 
-#### Buttons
-- **Wedding Variant**: Gold gradient with hover color-swap effect
-- **Wedding Light**: Outlined version with gold border
-- **Responsive Sizing**: Adaptive padding and text size across devices
+#### Wedding Button Component
+- **Wedding Variant**: Gold gradient (#de967d) with Indian wedding aesthetics
+- **Wedding Light**: Outlined version with cultural gold border
+- **Hover Effects**: Elegant transitions maintaining traditional feel
 
-#### Cards & Sections
-- **Shadow System**: Layered shadows (shadow-lg, shadow-xl, shadow-2xl)
-- **Border Radius**: Consistent rounded corners (rounded-lg, rounded-xl, rounded-3xl)
-- **Background Gradients**: Subtle gradients for visual depth
-
-#### Animations
-- **Viewport Triggers**: Elements animate when scrolling into view
-- **Staggered Entrances**: Sequential animation delays for list items
-- **Floating Effects**: Continuous subtle motion for decorative elements
-- **Hover Interactions**: Scale, shadow, and color transitions
+#### Service Cards & Sections
+- **Cultural Design**: Cards reflecting Indian wedding elegance
+- **Pricing Display**: Indian Rupee (₹) formatting with regional pricing
+- **Service Imagery**: Traditional and modern Indian wedding visuals
 
 ## 🏗 Project Structure
 
@@ -102,28 +100,85 @@ src/
 ├── app/
 │   ├── (landing)/
 │   │   ├── _components/
-│   │   │   ├── Gallery/           # Image gallery with masonry layout
-│   │   │   ├── Hero/              # Landing hero section
+│   │   │   ├── Contact/           # Contact section component
+│   │   │   ├── Footer/            # Website footer
+│   │   │   ├── Gallery/           # Landing page gallery
+│   │   │   ├── Hero/              # Hero section
 │   │   │   ├── IntroSection/      # Animated introduction
-│   │   │   ├── Navbar/            # Navigation with dropdowns
-│   │   │   ├── Offerings/         # Service packages
-│   │   │   ├── Services/          # Wedding services
-│   │   │   ├── Stats/             # Animated statistics
-│   │   │   └── TestimonialSection/ # Client testimonials carousel
-│   │   ├── layout.tsx             # Landing page layout
+│   │   │   ├── Navbar/            # Navigation with dropdown menus
+│   │   │   ├── Offerings/         # Service packages showcase
+│   │   │   ├── Services/          # Core services overview
+│   │   │   ├── Stats/             # Statistics with animations
+│   │   │   └── TestimonialSection/ # Client testimonials
 │   │   └── page.tsx              # Landing page
-│   ├── globals.css               # Global styles & CSS variables
-│   ├── layout.tsx               # Root layout
-│   └── page.tsx                 # Root page
+│   ├── about/
+│   │   └── page.tsx              # About us page
+│   ├── contact/
+│   │   └── page.tsx              # Contact form page
+│   ├── events/
+│   │   └── weddings/
+│   │       ├── [id]/
+│   │       │   ├── _components/
+│   │       │   │   ├── BookingForm.tsx      # Venue booking form
+│   │       │   │   ├── ImageGallery.tsx     # Venue image gallery
+│   │       │   │   └── LightboxGallery.tsx  # Full-screen image viewer
+│   │       │   └── page.tsx      # Individual venue page
+│   │       └── page.tsx          # Venue listing page
+│   ├── gallery/
+│   │   └── page.tsx              # Wedding photography gallery
+│   ├── services/
+│   │   ├── consultation/
+│   │   │   └── page.tsx          # Wedding planning consultation
+│   │   ├── corporate/
+│   │   │   └── page.tsx          # Corporate events planning
+│   │   ├── cultural/
+│   │   │   └── page.tsx          # Cultural ceremonies
+│   │   ├── destination/
+│   │   │   └── page.tsx          # Destination weddings
+│   │   ├── event-coordination/
+│   │   │   └── page.tsx          # Event coordination services
+│   │   └── wedding-planning/
+│   │       └── page.tsx          # Full wedding planning services
+│   ├── globals.css               # Global styles & Tailwind
+│   ├── layout.tsx               # Root layout with navigation
+│   └── page.tsx                 # Root redirect to landing
 ├── components/
-│   ├── ui/
-│   │   └── button.tsx           # Enhanced shadcn button component
-│   ├── DecorativeLine.tsx       # Animated decorative line
+│   ├── ui/                      # Shadcn UI components
+│   │   ├── badge.tsx
+│   │   ├── button.tsx
+│   │   ├── drawer.tsx
+│   │   ├── dropdown-menu.tsx
+│   │   └── tabs.tsx
+│   ├── DecorativeLine.tsx       # Animated decorative elements
 │   ├── LenisProvider.tsx        # Smooth scrolling provider
-│   └── WeddingButton.tsx        # Custom wedding-themed button
+│   └── WeddingButton.tsx        # Indian wedding themed button
 └── lib/
-    └── utils.ts                 # Utility functions
+    └── utils.ts                 # Utility functions & helpers
 ```
+
+## 💍 Service Offerings
+
+### 🏛️ Wedding Planning Services
+- **Complete Planning**: Full-service coordination from engagement to reception
+- **Venue Selection**: Expert venue scouting and booking across India
+- **Cultural Integration**: Authentic regional traditions and rituals
+- **Vendor Coordination**: Trusted network of wedding professionals
+- **Timeline Management**: Detailed scheduling and day-of coordination
+- **Budget Management**: Transparent pricing with value optimization
+
+### 🎯 Specialized Services
+1. **Event Coordination** (₹75K - ₹2L): Day-of coordination and management
+2. **Destination Weddings** (₹12L - ₹45L): Exotic locations with full logistics
+3. **Cultural Ceremonies** (₹1.5L - ₹6L): Regional traditions and authentic rituals
+4. **Corporate Events** (₹3L - ₹15L): Business celebrations with Indian hospitality
+5. **Consultation** (₹15K - ₹85K): Expert guidance and planning advice
+
+### 📍 Popular Destinations
+- **Rajasthan**: Palace weddings in Udaipur, Jodhpur, Jaipur
+- **Goa**: Beach resorts with Indian cultural elements
+- **Kerala**: Backwater venues with traditional ceremonies
+- **Himachal Pradesh**: Mountain weddings in scenic locations
+- **International**: Thailand, Bali, Dubai with Indian customs
 
 ## 🛠 Installation & Setup
 
@@ -177,18 +232,19 @@ npm run export
 - **TypeScript**: Static type checking
 
 ### Styling & UI
-- **Tailwind CSS**: Utility-first CSS framework
-- **Shadcn/ui**: High-quality React components
-- **Class Variance Authority (CVA)**: Component variant management
+- **Tailwind CSS**: Custom Indian wedding design system
+- **Shadcn/ui**: High-quality React components with wedding theme
+- **Class Variance Authority (CVA)**: Wedding button variant management
 
 ### Animations & Interactions
-- **Framer Motion**: Animation library for React
-- **Lenis**: Smooth scrolling library
-- **Swiper.js**: Modern carousel/slider library
+- **Framer Motion**: Smooth animations with cultural elegance
+- **Lenis**: Buttery smooth scrolling experience
+- **Viewport Animations**: Elements animate on scroll with staggered timing
 
-### Fonts & Assets
-- **Google Fonts**: Homemade Apple, Marcellus, Montserrat
-- **Next.js Image**: Optimized image loading and processing
+### Fonts & Cultural Elements
+- **Google Fonts**: Marcellus (headings), Montserrat (body)
+- **Indian Aesthetics**: Culturally authentic design elements
+- **Responsive Typography**: Optimized for all devices
 
 ## 🎯 Performance Optimizations
 
@@ -235,20 +291,30 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-**Pawan Dasila** - Wedding Planner & Developer
-- Website: [your-website.com](https://your-website.com)
-- Email: your-email@example.com
+**LŌŌVIO - Indian Wedding Specialists**
+- Website: [loovio-wedding.com](https://loovio-wedding.com)
+- Email: hello@loovio-wedding.com
+- Phone: +91 98765 43210
 - GitHub: [@Pawandasila](https://github.com/Pawandasila)
+
+**Specializing In:**
+- Traditional Indian Weddings
+- Destination Wedding Planning
+- Cultural Ceremony Coordination
+- Corporate Event Management
+- Wedding Consultation Services
 
 ## 🙏 Acknowledgments
 
-- **Next.js Team** for the amazing framework
-- **Vercel** for hosting and deployment platform
-- **Tailwind CSS** for the utility-first CSS framework
-- **Framer Motion** for smooth animations
-- **Google Fonts** for beautiful typography
-- **Unsplash/Pexels** for high-quality wedding photography
+- **Next.js Team** for the exceptional React framework
+- **Vercel** for seamless hosting and deployment
+- **Tailwind CSS** for the utility-first approach
+- **Framer Motion** for beautiful animations
+- **Indian Wedding Community** for cultural authenticity guidance
+- **Wedding Photography** contributors for stunning visuals
 
 ---
 
-**Made with ❤️ for couples planning their dream weddings**
+**Made with ❤️ for couples celebrating their sacred journey**
+
+*Honoring traditions, creating memories, celebrating love* 🕉️💒
