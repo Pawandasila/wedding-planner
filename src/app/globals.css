@@ -282,3 +282,71 @@
   animation-delay: 1.4s;
   animation-fill-mode: both;
 }
+
+/* Custom Scrollbar Styles */
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary-background);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-accent);
+  border-radius: 4px;
+  border: 1px solid var(--secondary-background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c8865f; /* Darker shade of secondary-accent */
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--secondary-background);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-accent) var(--secondary-background);
+}
+
+/* Custom scrollbar for dropdown menus */
+.dropdown-scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdown-scrollable::-webkit-scrollbar-track {
+  background: rgba(246, 244, 236, 0.5); /* secondary-background with opacity */
+  border-radius: 3px;
+}
+
+.dropdown-scrollable::-webkit-scrollbar-thumb {
+  background: rgba(222, 150, 125, 0.8); /* secondary-accent with opacity */
+  border-radius: 3px;
+}
+
+.dropdown-scrollable::-webkit-scrollbar-thumb:hover {
+  background: rgba(200, 134, 95, 0.9); /* Darker shade with opacity */
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: oklch(0.269 0 0);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--secondary-accent);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #c8865f;
+}
+
+.dark * {
+  scrollbar-color: var(--secondary-accent) oklch(0.269 0 0);
+}

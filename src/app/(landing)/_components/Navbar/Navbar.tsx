@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import "./style.css";
 import Image from "next/image";
 import Dropdown from "./Dropdown";
@@ -8,6 +9,24 @@ import Dropdown from "./Dropdown";
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState('HOME');
+  const pathname = usePathname();
+
+  // Update active nav item based on current pathname
+  useEffect(() => {
+    if (pathname === '/') {
+      setActiveNavItem('HOME');
+    } else if (pathname.startsWith('/events')) {
+      setActiveNavItem('VENUES');
+    } else if (pathname.startsWith('/services')) {
+      setActiveNavItem('SERVICES');
+    } else if (pathname === '/gallery') {
+      setActiveNavItem('GALLERY');
+    } else if (pathname === '/contact') {
+      setActiveNavItem('CONTACT');
+    } else if (pathname === '/about') {
+      setActiveNavItem('ABOUT US');
+    }
+  }, [pathname]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -23,8 +42,7 @@ const Navbar = () => {
           <div className="hidden lg:grid grid-cols-3 gap-2 items-center h-16">
             <div className="flex items-center justify-end animate-on-load animate-slide-left delay-100">
               <Link
-                href="#"
-                onClick={() => setActiveNavItem('HOME')}
+                href="/"
                 className={`nav-item-hover text-secondary-heading text-center uppercase transition-colors duration-200 py-5 px-7 text-xs font-medium ${
                   activeNavItem === 'HOME' ? 'nav-item-active' : ''
                 }`}
@@ -33,8 +51,7 @@ const Navbar = () => {
                 HOME
               </Link>
               <Link
-                href="#"
-                onClick={() => setActiveNavItem('ABOUT US')}
+                href="/about"
                 className={`nav-item-hover text-secondary-heading text-center text-nowrap uppercase transition-colors duration-200 py-5 px-7 text-xs font-medium ${
                   activeNavItem === 'ABOUT US' ? 'nav-item-active' : ''
                 }`}
@@ -43,16 +60,16 @@ const Navbar = () => {
                 ABOUT US
               </Link>
               <Dropdown
-                title="EVENTS"
-                isActive={activeNavItem === 'EVENTS'}
-                onItemClick={(title) => setActiveNavItem(title)}
+                title="VENUES"
+                isActive={activeNavItem === 'VENUES'}
+                onItemClick={() => {}} // Remove manual setting since useEffect handles it
                 items={[
-                  { label: "Weddings", href: "/events/weddings" },
-                  { label: "Receptions", href: "/events/receptions" },
-                  { label: "Engagement", href: "/events/engagement" },
-                  { label: "Mehendi", href: "/events/mehendi" },
-                  { label: "Sangam", href: "/events/sangam" },
-                  { label: "Corporate", href: "/events/corporate" }
+                  { label: "Wedding Venues", href: "/events/weddings" },
+                  { label: "Reception Halls", href: "/events/receptions" },
+                  { label: "Engagement Venues", href: "/events/engagement" },
+                  { label: "Function Halls", href: "/events/mehendi" },
+                  { label: "Corporate Spaces", href: "/events/corporate" },
+                  { label: "Destination Venues", href: "/events/destination" }
                 ]}
               />
             </div>
@@ -85,39 +102,36 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center justify-start animate-on-load animate-slide-right delay-200">
-              <a
-                href="#"
-                onClick={() => setActiveNavItem('GALLERY')}
+              <Link
+                href="/gallery"
                 className={`nav-item-hover text-secondary-heading text-center uppercase transition-colors duration-200 py-5 px-7 text-xs font-medium ${
                   activeNavItem === 'GALLERY' ? 'nav-item-active' : ''
                 }`}
                 style={{ letterSpacing: "2px", lineHeight: "140%" }}
               >
                 GALLERY
-              </a>
+              </Link>
               <Dropdown
                 title="SERVICES"
-                isActive={activeNavItem === 'SERVICES'}
-                onItemClick={(title) => setActiveNavItem(title)}
+                isActive={activeNavItem === 'SERVICES'} 
                 items={[
-                  { label: "Event Planning", href: "/services/planning" },
-                  { label: "Venue Booking", href: "/services/venues" },
-                  { label: "Catering", href: "/services/catering" },
-                  { label: "Photography", href: "/services/photography" },
-                  { label: "Decoration", href: "/services/decoration" },
-                  { label: "Entertainment", href: "/services/entertainment" }
+                  { label: "Wedding Planning", href: "/services/wedding-planning" },
+                  { label: "Event Coordination", href: "/services/event-coordination" },
+                  { label: "Destination Weddings", href: "/services/destination" },
+                  { label: "Cultural Ceremonies", href: "/services/cultural" },
+                  { label: "Corporate Events", href: "/services/corporate" },
+                  { label: "Consultation", href: "/services/consultation" }
                 ]}
               />
-              <a
-                href="#"
-                onClick={() => setActiveNavItem('CONTACT')}
+              <Link
+                href="/contact"
                 className={`nav-item-hover text-secondary-heading text-center uppercase transition-colors duration-200 py-5 px-7 text-xs font-medium ${
                   activeNavItem === 'CONTACT' ? 'nav-item-active' : ''
                 }`}
                 style={{ letterSpacing: "2px", lineHeight: "140%" }}
               >
                 CONTACT
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -282,8 +296,8 @@ const Navbar = () => {
 
           {/* Menu Items */}
           <div className="flex flex-col flex-1 py-4 px-2">
-            <a
-              href="#"
+            <Link
+              href="/"
               className="mobile-menu-item text-secondary-heading hover:text-secondary-accent px-6 py-4 text-base font-medium uppercase tracking-wider transition-all duration-300 rounded-xl mx-2 mb-1 border-b border-transparent hover:border-secondary-accent/20"
               onClick={() => setIsMobileMenuOpen(false)}
               style={{ letterSpacing: "1.5px" }}
@@ -304,10 +318,10 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-            </a>
+            </Link>
 
-            <a
-              href="#"
+            <Link
+              href="/about"
               className="mobile-menu-item text-secondary-heading hover:text-secondary-accent px-6 py-4 text-base font-medium uppercase tracking-wider transition-all duration-300 rounded-xl mx-2 mb-1 border-b border-transparent hover:border-secondary-accent/20"
               onClick={() => setIsMobileMenuOpen(false)}
               style={{ letterSpacing: "1.5px" }}
@@ -328,16 +342,16 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-            </a>
+            </Link>
 
-            <a
-              href="#"
+            <Link
+              href="/events/weddings"
               className="mobile-menu-item text-secondary-heading hover:text-secondary-accent px-6 py-4 text-base font-medium uppercase tracking-wider transition-all duration-300 rounded-xl mx-2 mb-1 border-b border-transparent hover:border-secondary-accent/20"
               onClick={() => setIsMobileMenuOpen(false)}
               style={{ letterSpacing: "1.5px" }}
             >
               <div className="flex items-center justify-between">
-                <span>EVENTS</span>
+                <span>VENUES</span>
                 <svg
                   className="w-4 h-4 opacity-30"
                   fill="none"
@@ -352,10 +366,10 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-            </a>
+            </Link>
 
-            <a
-              href="#"
+            <Link
+              href="/gallery"
               className="mobile-menu-item text-secondary-heading hover:text-secondary-accent px-6 py-4 text-base font-medium uppercase tracking-wider transition-all duration-300 rounded-xl mx-2 mb-1 border-b border-transparent hover:border-secondary-accent/20"
               onClick={() => setIsMobileMenuOpen(false)}
               style={{ letterSpacing: "1.5px" }}
@@ -376,10 +390,10 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-            </a>
+            </Link>
 
-            <a
-              href="#"
+            <Link
+              href="/services/wedding-planning"
               className="mobile-menu-item text-secondary-heading hover:text-secondary-accent px-6 py-4 text-base font-medium uppercase tracking-wider transition-all duration-300 rounded-xl mx-2 mb-1 border-b border-transparent hover:border-secondary-accent/20"
               onClick={() => setIsMobileMenuOpen(false)}
               style={{ letterSpacing: "1.5px" }}
@@ -400,10 +414,10 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-            </a>
+            </Link>
 
-            <a
-              href="#"
+            <Link
+              href="/contact"
               className="mobile-menu-item text-secondary-heading hover:text-secondary-accent px-6 py-4 text-base font-medium uppercase tracking-wider transition-all duration-300 rounded-xl mx-2"
               onClick={() => setIsMobileMenuOpen(false)}
               style={{ letterSpacing: "1.5px" }}
@@ -424,7 +438,7 @@ const Navbar = () => {
                   />
                 </svg>
               </div>
-            </a>
+            </Link>
           </div>
 
           {/* Footer Section */}

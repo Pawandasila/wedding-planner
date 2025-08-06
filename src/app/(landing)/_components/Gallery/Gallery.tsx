@@ -2,6 +2,7 @@
 import React, { useRef } from "react";
 import { useInView } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import DecorativeLine from "../../../../components/DecorativeLine";
 import WeddingButton from "../../../../components/WeddingButton";
 import "../IntroSection/style.css";
@@ -62,26 +63,26 @@ const Gallery = () => {
     {
       id: 9,
       src: "/gallery-09.jpg",
-      alt: "Emotional moment with family",
-      caption: "Tears of joy and happiness",
+      alt: "Emotional family moments",
+      caption: "Blessed family moments",
     },
     {
       id: 10,
       src: "/gallery-10.jpg",
-      alt: "Emotional moment with family",
-      caption: "Tears of joy and happiness",
+      alt: "Beautiful mandap decoration",
+      caption: "Sacred mandap setup",
     },
     {
       id: 11,
       src: "/gallery-11.jpg",
-      alt: "Emotional moment with family",
-      caption: "Tears of joy and happiness",
+      alt: "Haldi ceremony celebration",
+      caption: "Golden Haldi ceremony",
     },
     {
       id: 12,
       src: "/gallery-12.jpg",
-      alt: "Emotional moment with family",
-      caption: "Tears of joy and happiness",
+      alt: "Mehendi ceremony artistry",
+      caption: "Intricate mehendi designs",
     },
   ];
 
@@ -110,9 +111,9 @@ const Gallery = () => {
               isInView ? "animate animation-delay-400" : ""
             }`}
           >
-            Every celebration tells a story of love, laughter, and unforgettable
+            Every Indian celebration tells a story of love, tradition, and unforgettable
             memories. See the happiness we&apos;ve helped create for countless
-            families.
+            families across different ceremonies and celebrations.
           </p>
         </div>
 
@@ -154,7 +155,7 @@ const Gallery = () => {
         {/* Desktop View - Pinterest-style Masonry */}
         <div className="w-full hidden md:block">
           <div className="columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
-            {galleryImages.map((image, index) => (
+            {galleryImages.slice(0, 12).map((image, index) => (
               <div
                 key={image.id}
                 className={`break-inside-avoid mb-6 group cursor-pointer intro-animate-fadeInUp ${
@@ -195,7 +196,11 @@ const Gallery = () => {
             isInView ? "animate animation-delay-1600" : ""
           }`}
         >
-          <WeddingButton>View Full Gallery</WeddingButton>
+          <WeddingButton asChild>
+            <Link href="/gallery">
+              View Full Gallery
+            </Link>
+          </WeddingButton>
         </div>
 
 

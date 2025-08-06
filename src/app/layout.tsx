@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Marcellus, Montserrat, Homemade_Apple } from "next/font/google";
 import LenisProvider from "../components/LenisProvider";
+import Navbar from "./(landing)/_components/Navbar/Navbar";
+import Footer from "./(landing)/_components/Footer/Footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -47,7 +49,16 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${marcellus.variable} ${montserrat.variable} ${homemadeApple.variable} antialiased bg-secondary-background`}
       >
         <LenisProvider>
-          {children}
+          
+          <header>
+            <Navbar />
+          </header>
+
+          <main>
+            {children}
+          </main>
+
+          <Footer />
         </LenisProvider>
       </body>
     </html>
