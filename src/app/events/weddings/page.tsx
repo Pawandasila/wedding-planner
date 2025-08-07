@@ -96,9 +96,6 @@ const WeddingsPage = () => {
       capacity: "300-600 guests",
       specialFeatures: [
         "Authentic Rajasthani Decor",
-        "Traditional Courtyard",
-        "Folk Dance Performances",
-        "Royal Cuisine",
         "Heritage Rooms"
       ],
       highlights: "Immerse in royal Rajasthani culture with traditional architecture and customs",
