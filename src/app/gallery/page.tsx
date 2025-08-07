@@ -1,13 +1,28 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useInView } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
 import DecorativeLine from '../../components/DecorativeLine';
+import WeddingButton from '../../components/WeddingButton';
 
 const GalleryPage = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
+  const heroRef = useRef(null);
+  const galleryRef = useRef(null);
+  
+  const isHeroInView = useInView(heroRef, { once: true, amount: 0.2 });
+  const isGalleryInView = useInView(galleryRef, { once: true, amount: 0.1 });
+
+  // Gallery categories for filtering
+  const [activeCategory, setActiveCategory] = useState('all');
+
+  const categories = [
+    { id: 'all', label: 'All' },
+    { id: 'weddings', label: 'Weddings' },
+    { id: 'ceremonies', label: 'Ceremonies' },
+    { id: 'receptions', label: 'Receptions' },
+    { id: 'decorations', label: 'Decorations' },
+    { id: 'mehendi', label: 'Mehendi' }
+  ];
 
   const galleryImages = [
     {
@@ -15,354 +30,429 @@ const GalleryPage = () => {
       src: "/gallery-01.jpg",
       alt: "Joyful bride and groom during ceremony",
       caption: "Pure joy on their special day",
+      category: "weddings",
+      featured: true
     },
     {
       id: 2,
       src: "/gallery-02.jpg",
       alt: "Happy family celebrating together",
       caption: "Families coming together in celebration",
+      category: "ceremonies",
+      featured: false
     },
     {
       id: 3,
       src: "/gallery-03.jpg",
       alt: "Guests dancing and celebrating",
       caption: "Dancing the night away",
+      category: "receptions",
+      featured: true
     },
     {
       id: 4,
       src: "/gallery-04.jpg",
       alt: "Bride with beautiful smile",
       caption: "Radiant with happiness",
+      category: "weddings",
+      featured: false
     },
     {
       id: 5,
       src: "/gallery-05.jpg",
-      alt: "Elegant wedding decorations",
-      caption: "Every detail perfectly arranged",
+      alt: "Wedding party laughing together",
+      caption: "Laughter and love shared",
+      category: "weddings",
+      featured: true
     },
     {
       id: 6,
       src: "/gallery-06.jpg",
-      alt: "Traditional Indian wedding rituals",
-      caption: "Sacred traditions honored",
+      alt: "Couple's first dance",
+      caption: "Lost in the moment",
+      category: "receptions",
+      featured: false
     },
     {
       id: 7,
       src: "/gallery-07.jpg",
-      alt: "Beautiful bridal preparations",
-      caption: "Getting ready for the big day",
+      alt: "Indian wedding ceremony joy",
+      caption: "Traditional celebrations filled with joy",
+      category: "ceremonies",
+      featured: true
     },
     {
       id: 8,
       src: "/gallery-08.jpg",
-      alt: "Stunning venue setup",
-      caption: "A magical setting for love",
+      alt: "Guests celebrating with sparklers",
+      caption: "Sparkling moments of celebration",
+      category: "receptions",
+      featured: false
     },
     {
       id: 9,
       src: "/gallery-09.jpg",
       alt: "Emotional family moments",
-      caption: "Moments that last forever",
+      caption: "Blessed family moments",
+      category: "ceremonies",
+      featured: false
     },
     {
       id: 10,
       src: "/gallery-10.jpg",
-      alt: "Grand wedding reception",
-      caption: "Celebrating in style",
+      alt: "Beautiful mandap decoration",
+      caption: "Sacred mandap setup",
+      category: "decorations",
+      featured: true
     },
     {
       id: 11,
       src: "/gallery-11.jpg",
-      alt: "Cultural ceremony highlights",
-      caption: "Honoring heritage and tradition",
+      alt: "Haldi ceremony celebration",
+      caption: "Golden Haldi ceremony",
+      category: "ceremonies",
+      featured: false
     },
     {
       id: 12,
       src: "/gallery-12.jpg",
-      alt: "Couple's romantic portrait",
-      caption: "Love captured forever",
+      alt: "Mehendi ceremony artistry",
+      caption: "Intricate mehendi designs",
+      category: "mehendi",
+      featured: true
+    },
+    {
+      id: 13,
+      src: "/hero-02.jpg",
+      alt: "Traditional wedding setup",
+      caption: "Elegant traditional arrangements",
+      category: "decorations",
+      featured: false
+    },
+    {
+      id: 14,
+      src: "/hero-03.jpg",
+      alt: "Bride in traditional attire",
+      caption: "Timeless bridal elegance",
+      category: "weddings",
+      featured: true
+    },
+    {
+      id: 15,
+      src: "/hero-04.jpg",
+      alt: "Wedding ceremony moments",
+      caption: "Sacred vows and promises",
+      category: "ceremonies",
+      featured: false
+    },
+    {
+      id: 16,
+      src: "/hero-05.jpg",
+      alt: "Festive celebration",
+      caption: "Colors of celebration",
+      category: "receptions",
+      featured: false
+    },
+    {
+      id: 17,
+      src: "/hero-06.jpg",
+      alt: "Floral decorations",
+      caption: "Stunning floral arrangements",
+      category: "decorations",
+      featured: true
+    },
+    {
+      id: 18,
+      src: "/hero-07.jpg",
+      alt: "Traditional rituals",
+      caption: "Honoring sacred traditions",
+      category: "ceremonies",
+      featured: false
     }
   ];
 
-  const categories = [
-    {
-      name: "Ceremonies",
-      description: "Sacred rituals and traditional moments",
-      imageCount: 4,
-      images: galleryImages.slice(0, 4)
-    },
-    {
-      name: "Receptions",
-      description: "Grand celebrations and joyous festivities",
-      imageCount: 4,
-      images: galleryImages.slice(4, 8)
-    },
-    {
-      name: "Preparations",
-      description: "Behind-the-scenes moments and getting ready",
-      imageCount: 4,
-      images: galleryImages.slice(8, 12)
-    }
-  ];
+  // Filter images based on active category
+  const filteredImages = activeCategory === 'all' 
+    ? galleryImages 
+    : galleryImages.filter(img => img.category === activeCategory);
 
   return (
-    <div ref={ref} className="min-h-screen bg-gradient-to-b from-white to-secondary-background/30">
+    <div className="min-h-screen bg-secondary-background">
       {/* Hero Section */}
-      <section className="relative py-20 md:py-28 px-5 bg-gradient-to-r from-secondary-background to-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
+      <section 
+        ref={heroRef}
+        className="relative flex flex-col items-center justify-center pt-20 pb-16 px-4 overflow-hidden"
+      >
+        {/* Decorative Elements */}
+        <div className="absolute left-2 top-16 w-20 h-20 md:w-32 md:h-32 opacity-60 -rotate-12">
           <Image
-            src="/hero-03.jpg"
-            alt="Wedding gallery background"
+            src="/bg-flower.png"
+            alt="Decorative flower"
             fill
-            quality={90}
-            className="object-cover"
+            className="object-contain"
           />
         </div>
-        
-        <div className="relative z-10 max-w-6xl mx-auto text-center">
-          <h1 className={`font-marcellus text-secondary-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-wider intro-animate-slideInUp ${isInView ? 'animate' : ''}`}>
-            Wedding Gallery
-          </h1>
-          
-          <div className={`flex justify-center mb-6 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-200' : ''}`}>
-            <DecorativeLine isInView={isInView} />
-          </div>
-          
-          <p className={`font-montserrat text-secondary-paragraphs text-lg md:text-xl max-w-4xl mx-auto leading-relaxed intro-animate-fadeInUp ${isInView ? 'animate animation-delay-400' : ''}`}>
-            Explore our portfolio of beautiful Indian weddings. From intimate ceremonies to grand celebrations, 
-            each moment captured tells a unique love story filled with tradition, joy, and unforgettable memories.
-          </p>
+        <div className="absolute right-3 top-20 w-12 h-12 md:w-20 md:h-20 opacity-60 rotate-45">
+          <Image
+            src="/sideleaf.png"
+            alt="Decorative leaf"
+            fill
+            className="object-contain"
+          />
         </div>
-      </section>
+        <div className="absolute left-8 bottom-8 w-16 h-16 md:w-24 md:h-24 opacity-50 rotate-12">
+          <Image
+            src="/flower-light.png"
+            alt="Light decorative flower"
+            fill
+            className="object-contain"
+          />
+        </div>
 
-      {/* Gallery Categories */}
-      <section className="py-16 px-5 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className={`font-marcellus text-secondary-heading text-3xl md:text-4xl font-bold mb-4 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-600' : ''}`}>
-              Our Wedding Moments
-            </h2>
-            <p className={`font-montserrat text-secondary-paragraphs text-lg max-w-3xl mx-auto intro-animate-fadeInUp ${isInView ? 'animate animation-delay-800' : ''}`}>
-              Discover the magic of Indian weddings through our carefully curated gallery
+        <div 
+          className={`w-full max-w-4xl mx-auto text-center transition-all duration-1000 ${
+            isHeroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          {/* Hero Text */}
+          <div className="mb-8">
+            <Image
+              src="/leaf.png"
+              alt="Decorative element"
+              width={40}
+              height={12}
+              className="mx-auto mb-4"
+            />
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-marcellus text-secondary-heading mb-4 leading-tight">
+              Our Gallery
+            </h1>
+            <p className="text-base md:text-lg text-secondary-paragraphs font-montserrat leading-relaxed max-w-2xl mx-auto mb-6">
+              Discover the magic we create through our lens - a collection of beautiful moments, 
+              cherished memories, and celebrations that tell unique love stories
             </p>
           </div>
 
-          {categories.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="mb-16 last:mb-0">
-              <div className="text-center mb-8">
-                <h3 className={`font-marcellus text-secondary-heading text-2xl md:text-3xl font-bold mb-2 intro-animate-fadeInUp ${isInView ? 'animate' : ''}`}
-                    style={{ animationDelay: `${1 + categoryIndex * 0.2}s` }}>
-                  {category.name}
-                </h3>
-                <p className={`font-montserrat text-secondary-paragraphs intro-animate-fadeInUp ${isInView ? 'animate' : ''}`}
-                   style={{ animationDelay: `${1.2 + categoryIndex * 0.2}s` }}>
-                  {category.description}
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {category.images.map((image, imageIndex) => (
-                  <div
-                    key={image.id}
-                    className={`group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 intro-animate-fadeInUp ${isInView ? 'animate' : ''}`}
-                    style={{ animationDelay: `${1.4 + categoryIndex * 0.2 + imageIndex * 0.1}s` }}
-                  >
-                    <div className="relative h-64 md:h-80 overflow-hidden">
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <p className="font-montserrat text-sm font-medium">
+          <DecorativeLine isInView={isHeroInView} />
+        </div>
+      </section>
+
+      {/* Category Filter Section */}
+      <section className="py-8 px-4 bg-white sticky top-0 z-40 shadow-sm">
+        <div className="w-full max-w-6xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-2 md:gap-4">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`px-3 py-2 md:px-4 md:py-2 text-xs md:text-sm font-montserrat font-medium rounded-full transition-all duration-300 ${
+                  activeCategory === category.id
+                    ? 'bg-secondary-accent text-white shadow-md'
+                    : 'bg-gray-100 text-secondary-paragraphs hover:bg-secondary-accent hover:text-white'
+                }`}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Grid Section */}
+      <section 
+        ref={galleryRef}
+        className="py-16 px-4 bg-secondary-background"
+      >
+        <div 
+          className={`w-full max-w-7xl mx-auto transition-all duration-1000 ${
+            isGalleryInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          {/* Mobile Gallery Grid - 2 columns */}
+          <div className="block md:hidden">
+            <div className="grid grid-cols-2 gap-3">
+              {filteredImages.map((image, index) => (
+                <div
+                  key={image.id}
+                  className={`group cursor-pointer transition-all duration-700 ${
+                    isGalleryInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <div className={`relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-500 ${
+                    image.featured ? 'aspect-[3/4]' : 'aspect-square'
+                  }`}>
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                      quality={85}
+                    />
+                    
+                    {/* Overlay with Caption */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-0 left-0 right-0 p-3">
+                        <p className="text-white font-montserrat text-xs font-medium mb-1">
                           {image.caption}
                         </p>
+                        <span className="text-secondary-accent text-xs font-medium capitalize">
+                          {image.category}
+                        </span>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
 
-      {/* Services Highlight */}
-      <section className="py-16 px-5 bg-gradient-to-r from-secondary-background/50 to-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <h2 className={`font-marcellus text-secondary-heading text-3xl md:text-4xl font-bold mb-6 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-1600' : ''}`}>
-                Creating Timeless Memories
-              </h2>
-              <p className={`font-montserrat text-secondary-paragraphs text-lg leading-relaxed mb-6 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-1800' : ''}`}>
-                Every wedding tells a unique story, and we ensure each chapter is beautifully crafted. From traditional ceremonies steeped in cultural heritage to contemporary celebrations that reflect modern love stories, our expertise spans across all aspects of Indian wedding planning.
-              </p>
-              <p className={`font-montserrat text-secondary-paragraphs leading-relaxed mb-8 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-2000' : ''}`}>
-                Our dedicated team works tirelessly to bring your vision to life, handling every detail with precision and care. Whether you dream of a royal palace wedding in Rajasthan or an intimate beach ceremony in Goa, we make it happen with seamless execution and unmatched elegance.
-              </p>
-              
-              <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-2200' : ''}`}>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-secondary-accent rounded-full"></div>
-                  <span className="font-montserrat text-sm">Traditional Ceremonies</span>
+          {/* Tablet Gallery Grid - 3 columns */}
+          <div className="hidden md:block lg:hidden">
+            <div className="grid grid-cols-3 gap-4">
+              {filteredImages.map((image, index) => (
+                <div
+                  key={image.id}
+                  className={`group cursor-pointer transition-all duration-700 ${
+                    isGalleryInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{ transitionDelay: `${index * 80}ms` }}
+                >
+                  <div className={`relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-500 ${
+                    image.featured ? 'aspect-[4/5]' : 'aspect-[4/3]'
+                  }`}>
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                      quality={90}
+                    />
+                    
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <p className="text-white font-montserrat text-sm font-medium mb-1">
+                          {image.caption}
+                        </p>
+                        <span className="text-secondary-accent text-xs font-medium capitalize">
+                          {image.category}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-secondary-accent rounded-full"></div>
-                  <span className="font-montserrat text-sm">Luxury Receptions</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-secondary-accent rounded-full"></div>
-                  <span className="font-montserrat text-sm">Destination Weddings</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-secondary-accent rounded-full"></div>
-                  <span className="font-montserrat text-sm">Cultural Celebrations</span>
-                </div>
-              </div>
+              ))}
             </div>
-            
-            <div className="order-1 lg:order-2">
-              <div className="grid grid-cols-2 gap-4">
-                <div className={`space-y-4 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-2400' : ''}`}>
-                  <div className="relative h-48 rounded-xl overflow-hidden shadow-lg">
+          </div>
+
+          {/* Desktop Gallery Grid - Masonry Style */}
+          <div className="hidden lg:block">
+            <div className="columns-3 xl:columns-4 gap-6 space-y-6">
+              {filteredImages.map((image, index) => (
+                <div
+                  key={image.id}
+                  className={`break-inside-avoid mb-6 group cursor-pointer transition-all duration-700 ${
+                    isGalleryInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{ transitionDelay: `${index * 60}ms` }}
+                >
+                  <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500">
                     <Image
-                      src="/service-01.jpg"
-                      alt="Wedding ceremony"
-                      fill
-                      className="object-cover"
+                      src={image.src}
+                      alt={image.alt}
+                      width={400}
+                      height={600}
+                      className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                      quality={90}
                     />
-                  </div>
-                  <div className="relative h-32 rounded-xl overflow-hidden shadow-lg">
-                    <Image
-                      src="/offerring-01.jpg"
-                      alt="Wedding decoration"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
-                <div className={`space-y-4 mt-8 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-2600' : ''}`}>
-                  <div className="relative h-32 rounded-xl overflow-hidden shadow-lg">
-                    <Image
-                      src="/offerring-02.jpg"
-                      alt="Wedding planning"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="relative h-48 rounded-xl overflow-hidden shadow-lg">
-                    <Image
-                      src="/offerring-03.jpg"
-                      alt="Wedding celebration"
-                      fill
-                      className="object-cover"
-                    />
+                    
+                    {/* Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <p className="text-white font-montserrat text-sm font-medium mb-2">
+                          {image.caption}
+                        </p>
+                        <span className="text-secondary-accent text-xs font-medium capitalize">
+                          {image.category}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonial Preview */}
-      <section className="py-16 px-5 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className={`font-marcellus text-secondary-heading text-3xl md:text-4xl font-bold mb-8 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-2800' : ''}`}>
-            What Our Couples Say
-          </h2>
-          
-          <div className={`bg-secondary-background/30 p-8 md:p-12 rounded-2xl intro-animate-fadeInUp ${isInView ? 'animate animation-delay-3000' : ''}`}>
-            <div className="text-6xl text-secondary-accent mb-4">&ldquo;</div>
-            <p className="font-montserrat text-secondary-paragraphs text-lg md:text-xl leading-relaxed mb-6 italic">
-              The team made our dream wedding come true! Every detail was perfect, from the traditional ceremonies to the grand reception. They understood our vision and brought it to life beyond our expectations. Our families were amazed by the seamless coordination and authentic cultural elements.
-            </p>
-            <div className="font-marcellus text-secondary-heading font-semibold text-lg">
-              Priya & Arjun
+      {/* Stats Section */}
+      <section className="py-16 px-4 bg-white">
+        <div className="w-full max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div className="space-y-2">
+              <div className="text-2xl md:text-3xl font-marcellus text-secondary-heading">500+</div>
+              <div className="text-sm md:text-base text-secondary-paragraphs font-montserrat">Weddings Planned</div>
             </div>
-            <div className="font-montserrat text-secondary-accent text-sm">
-              Royal Palace Wedding, Udaipur
+            <div className="space-y-2">
+              <div className="text-2xl md:text-3xl font-marcellus text-secondary-heading">50+</div>
+              <div className="text-sm md:text-base text-secondary-paragraphs font-montserrat">Cities Covered</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-2xl md:text-3xl font-marcellus text-secondary-heading">10+</div>
+              <div className="text-sm md:text-base text-secondary-paragraphs font-montserrat">Years Experience</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-2xl md:text-3xl font-marcellus text-secondary-heading">100%</div>
+              <div className="text-sm md:text-base text-secondary-paragraphs font-montserrat">Client Satisfaction</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-5 bg-gradient-to-r from-secondary-accent/5 to-secondary-background/50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className={`font-marcellus text-secondary-heading text-3xl md:text-4xl font-bold mb-6 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-3200' : ''}`}>
-            Ready to Create Your Story?
-          </h2>
-          <p className={`font-montserrat text-secondary-paragraphs text-lg mb-8 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-3400' : ''}`}>
-            Let us help you create beautiful memories that will be cherished for generations. 
-            Start planning your perfect Indian wedding celebration today.
-          </p>
-          
-          <div className={`flex flex-col sm:flex-row gap-4 justify-center intro-animate-fadeInUp ${isInView ? 'animate animation-delay-3600' : ''}`}>
-            <Link
-              href="/contact"
-              className="inline-block bg-secondary-accent text-white px-8 py-3 rounded-lg font-medium hover:bg-secondary-accent/90 transition-colors duration-300"
-            >
-              Start Planning
-            </Link>
-            <Link
-              href="/events/weddings"
-              className="inline-block border-2 border-secondary-accent text-secondary-accent px-8 py-3 rounded-lg font-medium hover:bg-secondary-accent hover:text-white transition-all duration-300"
-            >
-              View Venues
-            </Link>
+      <section className="py-16 px-4 bg-secondary-background text-center">
+        <div className="w-full max-w-4xl mx-auto">
+          <div className="relative">
+            {/* Decorative elements */}
+            <div className="absolute left-4 -top-4 w-16 h-16 opacity-50 -rotate-12">
+              <Image
+                src="/bg-flower.png"
+                alt="Decorative element"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <div className="absolute right-4 -bottom-4 w-16 h-16 opacity-50 rotate-12 scale-x-[-1]">
+              <Image
+                src="/bg-flower.png"
+                alt="Decorative element"
+                fill
+                className="object-contain"
+              />
+            </div>
+
+            <h2 className="text-2xl md:text-3xl font-marcellus text-secondary-heading mb-4">
+              Ready to Create Your Story?
+            </h2>
+            <p className="text-secondary-paragraphs font-montserrat mb-8 max-w-2xl mx-auto">
+              Let us capture your special moments and create memories that will last a lifetime. 
+              Contact us to discuss your dream wedding.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <WeddingButton variant="wedding" className="px-8">
+                Book Consultation
+              </WeddingButton>
+              <WeddingButton variant="wedding-light" className="px-8">
+                View Services
+              </WeddingButton>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* Animation Styles */}
-      <style jsx global>{`
-        .intro-animate-slideInUp {
-          opacity: 0;
-          transform: translateY(30px);
-          transition: all 0.8s ease-out;
-        }
-        
-        .intro-animate-slideInUp.animate {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        
-        .intro-animate-fadeInUp {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.6s ease-out;
-        }
-        
-        .intro-animate-fadeInUp.animate {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        
-        @media (max-width: 768px) {
-          .animation-delay-200 { animation-delay: 0.2s; }
-          .animation-delay-400 { animation-delay: 0.4s; }
-          .animation-delay-600 { animation-delay: 0.6s; }
-          .animation-delay-800 { animation-delay: 0.8s; }
-          .animation-delay-1000 { animation-delay: 1s; }
-          .animation-delay-1200 { animation-delay: 1.2s; }
-          .animation-delay-1400 { animation-delay: 1.4s; }
-          .animation-delay-1600 { animation-delay: 1.6s; }
-          .animation-delay-1800 { animation-delay: 1.8s; }
-          .animation-delay-2000 { animation-delay: 2s; }
-          .animation-delay-2200 { animation-delay: 2.2s; }
-          .animation-delay-2400 { animation-delay: 2.4s; }
-          .animation-delay-2600 { animation-delay: 2.6s; }
-          .animation-delay-2800 { animation-delay: 2.8s; }
-          .animation-delay-3000 { animation-delay: 3s; }
-          .animation-delay-3200 { animation-delay: 3.2s; }
-          .animation-delay-3400 { animation-delay: 3.4s; }
-          .animation-delay-3600 { animation-delay: 3.6s; }
-        }
-      `}</style>
     </div>
   );
 };
