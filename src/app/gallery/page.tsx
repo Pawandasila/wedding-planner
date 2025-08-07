@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useInView } from 'framer-motion';
 import Image from 'next/image';
 import DecorativeLine from '../../components/DecorativeLine';
@@ -201,17 +201,17 @@ const GalleryPage = () => {
     document.body.style.overflow = 'unset';
   };
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     const nextIndex = (currentImageIndex + 1) % filteredImages.length;
     setCurrentImageIndex(nextIndex);
     setSelectedImage(filteredImages[nextIndex]);
-  };
+  }, [currentImageIndex, filteredImages]);
 
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     const prevIndex = (currentImageIndex - 1 + filteredImages.length) % filteredImages.length;
     setCurrentImageIndex(prevIndex);
     setSelectedImage(filteredImages[prevIndex]);
-  };
+  }, [currentImageIndex, filteredImages]);
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -225,7 +225,7 @@ const GalleryPage = () => {
 
     document.addEventListener('keydown', handleKeyPress);
     return () => document.removeEventListener('keydown', handleKeyPress);
-  }, [selectedImage, currentImageIndex, filteredImages]);
+  }, [selectedImage, goToNext, goToPrevious]);
 
   return (
     <div className="min-h-screen bg-secondary-background">
