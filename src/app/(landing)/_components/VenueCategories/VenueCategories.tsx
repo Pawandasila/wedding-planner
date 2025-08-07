@@ -1,42 +1,42 @@
 'use client';
-import React, { useRef } from 'react'
-import { useInView } from 'framer-motion'
-import Image from 'next/image'
-import Link from 'next/link'
-import DecorativeLine from '../../../../components/DecorativeLine'
-import WeddingButton from '../../../../components/WeddingButton'
-import '../IntroSection/style.css'
+import React, { useRef } from 'react';
+import { useInView } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+import DecorativeLine from '../../../../components/DecorativeLine';
+import WeddingButton from '../../../../components/WeddingButton';
+import '../IntroSection/style.css';
 
-const Services = () => {
+const VenueCategories = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
 
-  const services = [
+  const venueCategories = [
     {
       id: 1,
-      title: "Indian Weddings",
-      description: "Traditional and grand Indian wedding ceremonies with authentic rituals, vibrant decorations, and cultural elegance that honors your heritage.",
-      image: "/hero-08.jpg",
-      link: "/services/weddings"
+      title: "Destination Weddings",
+      description: "Breathtaking destination venues across exotic locations, beach resorts and heritage properties for unforgettable celebrations.",
+      image: "/hero-01.jpg",
+      link: "/events/weddings"
     },
     {
-      id: 2, 
-      title: "Event Design",
-      description: "Bespoke event design services creating memorable experiences with stunning décor, lighting, and ambiance for all your special occasions.",
-      image: "/service-01.jpg",
-      link: "/services/event-design"
+      id: 2,
+      title: "Haldi and Mehndi Venues",
+      description: "Find the perfect venues for your Haldi and Mehndi ceremonies, with vibrant settings and beautiful backdrops.",
+      image: "/haldi.jpg",
+      link: "/events/haldi-mehndi"
     },
     {
       id: 3,
-      title: "Venue Coordination", 
-      description: "Complete venue management and coordination services ensuring flawless execution of your celebration from setup to cleanup.",
-      image: "/offerring-01.jpg",
-      link: "/services/venue-coordination"
-    },
+      title: "Wedding Anniversaries",
+      description: "Celebrate your love with exquisite venues that offer a perfect blend of elegance and charm for your anniversary.",
+      image: "/hero-03.jpg",
+      link: "/events/anniversaries"
+    }
   ];
 
   return (
-    <section 
+    <section
       ref={ref}
       className="flex flex-col items-center justify-center py-16 md:py-20 px-5 bg-secondary-background"
     >
@@ -44,7 +44,7 @@ const Services = () => {
         {/* Section Title */}
         <div className="flex flex-col items-center mb-16">
           <h2 className={`font-marcellus tracking-wider font-bold text-secondary-heading text-2xl md:text-3xl lg:text-4xl mb-6 text-center intro-animate-slideInUp ${isInView ? 'animate' : ''}`}>
-            Our Services
+            Venue Categories
           </h2>
           
           {/* Decorative Line with Center Dot */}
@@ -52,22 +52,22 @@ const Services = () => {
           
         </div>
 
-        {/* Services Grid */}
+        {/* Categories Grid */}
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {services.map((service, index) => (
+          {venueCategories.map((category, index) => (
             <div 
-              key={service.id}
+              key={category.id}
               className={`w-full flex flex-col items-center intro-animate-fadeInUp ${isInView ? 'animate' : ''}`}
               style={{ animationDelay: `${0.2 + index * 0.2}s` }}
             >
-              {/* Service Image */}
+              {/* Category Image */}
               <Link 
-                href={service.link}
+                href={category.link}
                 className="w-full h-96 md:h-[28rem] lg:h-[30rem] bg-secondary-preload mb-11 overflow-hidden transition-all duration-700 hover:shadow-xl group block hover:scale-95"
               >
                 <Image
-                  src={service.image}
-                  alt={service.title}
+                  src={category.image}
+                  alt={category.title}
                   width={805}
                   height={600}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -75,46 +75,46 @@ const Services = () => {
                 />
               </Link>
 
-              {/* Service Content */}
+              {/* Category Content */}
               <div className="text-center flex flex-col justify-start items-center px-[5%]">
-                {/* Service Title */}
+                {/* Category Title */}
                 <Link 
-                  href={service.link}
+                  href={category.link}
                   className="mb-5 no-underline transition-opacity duration-400 hover:opacity-70"
                 >
                   <h4 className="text-secondary-heading font-marcellus text-xl md:text-2xl font-semibold">
-                    {service.title}
+                    {category.title}
                   </h4>
                 </Link>
 
-                {/* Service Description */}
+                {/* Category Description */}
                 <p className="text-secondary-paragraphs font-montserrat text-base leading-relaxed mb-6">
-                  {service.description}
+                  {category.description}
                 </p>
 
                 {/* Learn More Link */}
                 <Link 
-                  href={'/services'}
+                  href={category.link}
                   className="text-secondary-accent hover:text-secondary-heading transition-colors duration-300 uppercase tracking-wider text-sm font-medium underline hover:no-underline"
                 >
-                  Learn More
+                  Explore Venues
                 </Link>
               </div>
             </div>
           ))}
         </div>
 
-        {/* View All Services Button */}
+        {/* View All Categories Button */}
         <div className={`mt-12 md:mt-16 intro-animate-fadeInUp ${isInView ? 'animate animation-delay-1000' : ''}`}>
           <WeddingButton asChild>
-            <Link href="/services">
-              View All Services
+            <Link href="/venues">
+              View All Categories
             </Link>
           </WeddingButton>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Services
+export default VenueCategories;

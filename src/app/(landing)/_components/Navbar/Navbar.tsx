@@ -4,19 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "./style.css";
 import Image from "next/image";
-import Dropdown from "./Dropdown";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState('HOME');
-  const [mobileVenuesOpen, setMobileVenuesOpen] = useState(false);
   const pathname = usePathname();
 
   // Update active nav item based on current pathname
   useEffect(() => {
     if (pathname === '/') {
       setActiveNavItem('HOME');
-    } else if (pathname.startsWith('/events')) {
+    } else if (pathname.startsWith('/events') || pathname === '/venues') {
       setActiveNavItem('VENUES');
     } else if (pathname.startsWith('/services')) {
       setActiveNavItem('SERVICES');
@@ -31,14 +29,6 @@ const Navbar = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-    // Reset dropdown states when mobile menu is closed
-    if (isMobileMenuOpen) {
-      setMobileVenuesOpen(false);
-    }
-  };
-
-  const toggleMobileVenues = () => {
-    setMobileVenuesOpen(!mobileVenuesOpen);
   };
 
   
@@ -69,19 +59,15 @@ const Navbar = () => {
               >
                 ABOUT US
               </Link>
-              <Dropdown
-                title="VENUES"
-                isActive={activeNavItem === 'VENUES'}
-                onItemClick={() => {}} // Remove manual setting since useEffect handles it
-                items={[
-                  { label: "Wedding Venues", href: "/events/weddings" },
-                  { label: "Reception Halls", href: "/events/receptions" },
-                  { label: "Engagement Venues", href: "/events/engagement" },
-                  { label: "Function Halls", href: "/events/mehendi" },
-                  { label: "Corporate Spaces", href: "/events/corporate" },
-                  { label: "Destination Venues", href: "/events/destination" }
-                ]}
-              />
+              <Link
+                href="/venues"
+                className={`nav-item-hover text-secondary-heading text-center uppercase transition-colors duration-200 py-5 px-7 text-xs font-medium ${
+                  activeNavItem === 'VENUES' ? 'nav-item-active' : ''
+                }`}
+                style={{ letterSpacing: "2px", lineHeight: "140%" }}
+              >
+                VENUES
+              </Link>
             </div>
 
             {/* Center - Logo */}
@@ -363,79 +349,29 @@ const Navbar = () => {
               </div>
             </Link>
 
-            {/* Mobile Venues Dropdown */}
-            <div className="mx-2 mb-1">
-              <button
-                onClick={toggleMobileVenues}
-                className="mobile-menu-item text-secondary-heading hover:text-secondary-accent px-6 py-4 text-base font-medium uppercase tracking-wider transition-all duration-300 rounded-xl w-full text-left border-b border-transparent hover:border-secondary-accent/20"
-                style={{ letterSpacing: "1.5px" }}
-              >
-                <div className="flex items-center justify-between">
-                  <span>VENUES</span>
-                  <svg
-                    className={`w-4 h-4 transition-transform duration-300 ${mobileVenuesOpen ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </div>
-              </button>
-              
-              {/* Mobile Venues Dropdown Items */}
-              <div className={`overflow-hidden transition-all duration-300 ${mobileVenuesOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'}`}>
-                <div className="py-2 px-4 bg-secondary-background/30 rounded-b-xl">
-                  <Link
-                    href="/events/weddings"
-                    className="block px-4 py-3 text-sm text-secondary-paragraphs hover:text-secondary-accent transition-colors duration-200 hover:bg-white/50 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Wedding Venues
-                  </Link>
-                  <Link
-                    href="/events/receptions"
-                    className="block px-4 py-3 text-sm text-secondary-paragraphs hover:text-secondary-accent transition-colors duration-200 hover:bg-white/50 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Reception Halls
-                  </Link>
-                  <Link
-                    href="/events/engagement"
-                    className="block px-4 py-3 text-sm text-secondary-paragraphs hover:text-secondary-accent transition-colors duration-200 hover:bg-white/50 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Engagement Venues
-                  </Link>
-                  <Link
-                    href="/events/mehendi"
-                    className="block px-4 py-3 text-sm text-secondary-paragraphs hover:text-secondary-accent transition-colors duration-200 hover:bg-white/50 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Function Halls
-                  </Link>
-                  <Link
-                    href="/events/corporate"
-                    className="block px-4 py-3 text-sm text-secondary-paragraphs hover:text-secondary-accent transition-colors duration-200 hover:bg-white/50 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Corporate Spaces
-                  </Link>
-                  <Link
-                    href="/events/destination"
-                    className="block px-4 py-3 text-sm text-secondary-paragraphs hover:text-secondary-accent transition-colors duration-200 hover:bg-white/50 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Destination Venues
-                  </Link>
-                </div>
+            <Link
+              href="/venues"
+              className="mobile-menu-item text-secondary-heading hover:text-secondary-accent px-6 py-4 text-base font-medium uppercase tracking-wider transition-all duration-300 rounded-xl mx-2 mb-1 border-b border-transparent hover:border-secondary-accent/20"
+              onClick={() => setIsMobileMenuOpen(false)}
+              style={{ letterSpacing: "1.5px" }}
+            >
+              <div className="flex items-center justify-between">
+                <span>VENUES</span>
+                <svg
+                  className="w-4 h-4 opacity-0 transition-opacity duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
               </div>
-            </div>
+            </Link>
 
             <Link
               href="/gallery"

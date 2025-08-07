@@ -6,6 +6,7 @@ import Offerings from "./(landing)/_components/Offerings/Offerings";
 import Services from "./(landing)/_components/Services/Service";
 import Stats from "./(landing)/_components/Stats/Stats";
 import TestimonialSection from "./(landing)/_components/TestimonialSection/TestimonialSection";
+import VenueCategories from "./(landing)/_components/VenueCategories/VenueCategories";
 
 export default function Home() {
   return (
@@ -17,6 +18,8 @@ export default function Home() {
       <Intro />
 
       <Services />
+
+      <VenueCategories />
 
       <Offerings />
 
