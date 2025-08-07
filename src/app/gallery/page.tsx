@@ -283,7 +283,9 @@ const GalleryPage = () => {
             </p>
           </div>
 
-          <DecorativeLine isInView={isHeroInView} />
+          <div className="flex justify-center">
+            <DecorativeLine isInView={isHeroInView} />
+          </div>
         </div>
       </section>
 
